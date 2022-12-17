@@ -1,7 +1,7 @@
 import 'dart:async';
 
 main() {
-  final streamController = StreamController();
+  final streamController = new StreamController<String>.broadcast();
 
   streamController.stream.listen(
     (data) => print('Taking off! $data'),
@@ -10,7 +10,14 @@ main() {
     cancelOnError: false,
   );
 
-  streamController.sink.add('Apolo 11');
+  streamController.stream.listen(
+    (data) => print('Taking off Stream 2! $data'),
+    onError: (err) => print('Error Stream 2! $err'),
+    onDone: () => print('Mission Accomplished Stream 2!'),
+    cancelOnError: false,
+  );
+
+  streamController.sink.add('Apollo 11');
   streamController.sink.add('Apolo 12');
   streamController.sink.add('Apolo 13');
   streamController.sink.addError('Houston, we have a problem!');
