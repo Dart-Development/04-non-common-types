@@ -1,6 +1,7 @@
 import 'dart:async';
 
 main() {
+  // broadcast allows the stream to be listened multiple times
   final streamController = new StreamController<String>.broadcast();
 
   streamController.stream.listen(
